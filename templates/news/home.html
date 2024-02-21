@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 <title>{% block title %} Bosh sahifa {% endblock title %}</title>
 
 {% block content %}
@@ -40,6 +41,7 @@
                                         </a>
                                         <div class="media-body">
                                             <a href="{{ news.get_absolute_url }}" class="catg_title">{{ news.title }}</a>
+                                             <p>Ko'rilganlar soni: <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %}</p>
                                         </div>
                                     </div>
                                 </li>
@@ -70,6 +72,8 @@
                                         <img alt="" src="{{ mahalliy.image.url }}"> <span
                                             class="overlay"></span> </a>
                                         <figcaption><a href="{{ mahalliy.get_absolute_url }}">{{ mahalliy.title | truncatewords:5 }}</a></figcaption>
+                                        <p>{{ mahalliy.body | truncatewords:10 }}</p>
+                                            <p>Ko'rilganlar soni: <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for mahalliy %}</p>
                                         <p>{{ mahalliy.title }}</p>
                                     </figure>
                                 </li>
