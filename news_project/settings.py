@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c+*jeuwcp+b6uly6k(y$uwask&2=9(l7xhrfvm!%&@)2t*-7*7'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+ALLOWED_HOSTS = ["perfectlearning.uz", "www.perfectlearning.uz", '127.0.0.1']
+
 
 
 # Application definition
@@ -40,11 +43,16 @@ INSTALLED_APPS = [
     'news_app',
     'accounts',
     'hitcount',
+    'modeltranslation',
+    'whitenoise.runserver_nostatic',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -108,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz-uz'
 
 TIME_ZONE = 'Asia/Tashkent'
 
@@ -116,20 +124,39 @@ USE_I18N = True
 
 USE_TZ = True
 
+from django.utils.translation import gettext_lazy as _
+LANGUAGES = [
+    ('uz', _('Uzbek')),
+    ('en',_('English')),
+    ('ru',_('Russian')),
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR/'static']  # bu static debug un ishlatiladi
-STATIC_ROOT = BASE_DIR/'staticfiles'
+STATIC_ROOT='/home/alo/perfectlearning.uz/django/staticfiles'
+STATICFILES_DIRS =('/home/alo/perfectlearning.uz/django/staticfiles')
+
+#
+# local
+# STATICFILES_DIRS = [BASE_DIR/'static']  # bu static debug un ishlatiladi
+# STATIC_ROOT = BASE_DIR/'staticfiles'
+
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 ]
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR/'MEDIA'
+MEDIA_ROOT = '/home/alo/perfectlearning.uz/django/media'
+
+# local
+# MEDIA_ROOT = BASE_DIR/'MEDIA'
+
 
 
 # Default primary key field type
@@ -142,3 +169,5 @@ LOGIN_REDIRECT_URL='home_page'
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 LOGIN_URL='login'
+
+STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
