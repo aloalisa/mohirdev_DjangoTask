@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ["perfectlearning.uz", "www.perfectlearning.uz", '127.0.0.1']
+ALLOWED_HOSTS = ["perfectlearning.uz", "www.perfect-learning.uz", '127.0.0.1']
 
 
 
@@ -137,8 +137,8 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT='/home/alo/perfectlearning.uz/django/staticfiles'
-STATICFILES_DIRS =('/home/alo/perfectlearning.uz/django/staticfiles')
+STATIC_ROOT='/home/perfect7/perfectlearning.uz/django/staticfiles'
+STATICFILES_DIRS =['/home/perfect7/perfectlearning.uz/django/staticfiles']
 
 #
 # local
@@ -152,7 +152,7 @@ STATICFILES_FINDERS = [
 ]
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = '/home/alo/perfectlearning.uz/django/media'
+MEDIA_ROOT = '/home/perfect7/perfectlearning.uz/django/media'
 
 # local
 # MEDIA_ROOT = BASE_DIR/'MEDIA'
